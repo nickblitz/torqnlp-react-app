@@ -48,7 +48,7 @@ export const AuthProvider = (props) => {
             id: user.uid,
             avatar: user.photoURL,
             email: user.email,
-            name: 'Jane Rotanson',
+            name: user.displayName || user.email,
             plan: 'Premium'
           }
         }

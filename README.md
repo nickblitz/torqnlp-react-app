@@ -1,7 +1,7 @@
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Project includes
-- Auth0 user authentication
+- Firebase user authentication
 - MaterialUI
 - Redux & Slice
 

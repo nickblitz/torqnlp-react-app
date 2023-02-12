@@ -1,13 +1,12 @@
 import { useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { get, isEmpty } from 'lodash';
 import useAuth from '../hooks/useAuth';
-import NoAccount from '../pages/NoAccount';
+import Login from '../pages/authentication/Login';
 
 const AuthGuard = (props) => {
   const { children } = props;
-  const { loginWithRedirect, isAuthenticated, user } = useAuth();
+  const { isAuthenticated } = useAuth();
   const location = useLocation();
   const [requestedLocation, setRequestedLocation] = useState(null);
 
@@ -16,12 +15,7 @@ const AuthGuard = (props) => {
     if (location.pathname !== requestedLocation) {
       setRequestedLocation(location.pathname);
     }
-    loginWithRedirect();
-    return null;
-  }
-
-  if (isEmpty(get(user, 'account'))) {
-    return <NoAccount />
+    return <Login />;
   }
 
   // This is done so that in case the route changes by any chance through other

@@ -3,15 +3,14 @@ import { Link as RouterLink } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { Box, Card, CardContent, Container, Divider, Link, Typography } from '@material-ui/core';
 import {
-  LoginAuth0,
+  LoginFirebase,
 } from '../../components/authentication/login';
 import Logo from '../../components/Logo';
-import useAuth from '../../hooks/useAuth';
 import gtm from '../../lib/gtm';
 import { appConfig } from '../../config';
+import { register } from '../../constants/routing';
 
 const Login = () => {
-  const { platform } = useAuth();
 
   useEffect(() => {
     gtm.push({ event: 'page_view' });
@@ -74,12 +73,6 @@ const Login = () => {
                   >
                     Log in
                   </Typography>
-                  <Typography
-                    color="textSecondary"
-                    variant="body2"
-                  >
-                    Log in on the internal platform
-                  </Typography>
                 </div>
               </Box>
               <Box
@@ -88,28 +81,17 @@ const Login = () => {
                   mt: 3
                 }}
               >
-                {platform === 'Auth0' && <LoginAuth0 />}
+                <LoginFirebase />
               </Box>
               <Divider sx={{ my: 3 }} />
               <Link
                 color="textSecondary"
                 component={RouterLink}
-                to="/authentication/register"
+                to={register()}
                 variant="body2"
               >
                 Create new account
               </Link>
-              {platform === 'Amplify' && (
-                <Link
-                  color="textSecondary"
-                  component={RouterLink}
-                  sx={{ mt: 1 }}
-                  to="/authentication/password-recovery"
-                  variant="body2"
-                >
-                  Forgot password
-                </Link>
-              )}
             </CardContent>
           </Card>
         </Container>

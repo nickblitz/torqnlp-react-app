@@ -1,5 +1,5 @@
 import { withStyles } from '@material-ui/core/styles';
-import logo from '../images/logo.png';
+import logo from '../images/logo.svg';
 
 const styles = () => ({
   root: {
@@ -11,7 +11,7 @@ const styles = () => ({
 const Logo = ({classes, ...props}) => (
   <img
     src={logo}
-    alt="Captain Montitoring"
+    alt="TorqNLP"
     className={classes.root}
     {...props}
   />

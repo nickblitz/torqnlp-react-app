@@ -3,7 +3,7 @@ import { useRoutes } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import './i18n';
-import RTL from './components/RTL';
+import RTL from './components/layouts/RTL';
 import SplashScreen from './components/SplashScreen';
 import { gtmConfig } from './config';
 import useAuth from './hooks/useAuth';

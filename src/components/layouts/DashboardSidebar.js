@@ -12,7 +12,7 @@ import UserIcon from '../../icons/User';
 import NavSection from '../NavSection';
 import Scrollbar from '../Scrollbar';
 import { pipelines, account, search } from '../../constants/routing';
-import logo from '../../images/logo.png';
+import logo from '../../images/logo.svg';
 import { experimentalStyled } from '@material-ui/core/styles';
 import { appConfig } from '../../config';
 

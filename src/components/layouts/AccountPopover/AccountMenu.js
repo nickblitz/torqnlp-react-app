@@ -44,7 +44,7 @@ export default function AccountMenu({ onClick, component, customRef }) {
           color="textPrimary"
           variant="subtitle2"
         >
-          {user.account.name}
+          {user.name}
         </Typography>
         <Typography
           color="textSecondary"

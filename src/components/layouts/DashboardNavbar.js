@@ -3,26 +3,27 @@ import { NavLink as RouterLink } from 'react-router-dom';
 import { AppBar, Box, IconButton, Toolbar, Grid } from '@material-ui/core';
 import { experimentalStyled } from '@material-ui/core/styles';
 import MenuIcon from '../../icons/Menu';
-import { account, home } from '../../constants/routing';
+import { fineTunedModels } from '../../constants/routing';
 import AccountPopover from './AccountPopover';
 import Logo from '../Logo';
-import NavItemHorizontal from '../NavItemHorizontal';
+import NavItemHorizontal from '../layouts/NavItemHorizontal';
 
 const DashboardNavbarRoot = experimentalStyled(AppBar)(({ theme }) => ({
   ...(theme.palette.mode === 'light' && {
     boxShadow: 'none',
     color: theme.palette.text.primary,
     backgroundColor: theme.palette.background.paper,
-    minHeight: '86px',
     borderBottom: `1px solid ${theme.palette.divider}`,
-    padding: '0 1.4rem',
   }),
   ...(theme.palette.mode === 'dark' && {
+    backgroundColor: theme.palette.background.paper,
     borderBottom: `1px solid ${theme.palette.divider}`,
     boxShadow: 'none'
   }),
   zIndex: theme.zIndex.drawer - 100,
   justifyContent: 'center',
+  padding: '0 1.4rem',
+  minHeight: '86px',
 }));
 
 const DashboardNavbar = (props) => {
@@ -71,14 +72,9 @@ const DashboardNavbar = (props) => {
           }}
         >
           <NavItemHorizontal
-            to={home()}
+            to={fineTunedModels()}
           >
-            Home
-          </NavItemHorizontal>
-          <NavItemHorizontal
-            to={account()}
-          >
-            Account
+            Fine-Tuned Models
           </NavItemHorizontal>
         </Box>
         <Box

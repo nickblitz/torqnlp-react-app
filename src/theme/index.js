@@ -160,18 +160,35 @@ const themesOptions = {
   },
   [THEMES.DARK]: {
     components: {
+      MuiPaper: {
+        styleOverrides: {
+          root: {
+            backgroundColor: 'rgb(30, 32, 33)',
+            border: '1px solid rgba(145, 158, 171, 0.24)',
+          },
+        },
+      },
       MuiTableCell: {
         styleOverrides: {
           root: {
             borderBottom: '1px solid rgba(145, 158, 171, 0.24)'
           }
         }
-      }
+      },
+      MuiOutlinedInput: {
+        styleOverrides: {
+          input: {
+            '&:-webkit-autofill': {
+              WebkitBoxShadow: '0 0 0 100px #161616 inset!important',
+            }
+          },
+        },
+      },
     },
     palette: {
       background: {
         default: '#171c24',
-        paper: '#222b36'
+        paper: '#161616'
       },
       divider: 'rgba(145, 158, 171, 0.24)',
       error: {
@@ -181,7 +198,7 @@ const themesOptions = {
       mode: 'dark',
       primary: {
         contrastText: '#ffffff',
-        main: '#688eff'
+        main: 'rgb(252, 212, 5)'
       },
       success: {
         contrastText: '#ffffff',

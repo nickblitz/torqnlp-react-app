@@ -8,14 +8,12 @@ import {
   Box,
   Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Divider,
   FormHelperText,
   Grid,
   Link,
-  Switch,
   TextField,
   Typography
 } from '@material-ui/core';
@@ -87,15 +85,6 @@ const AccountGeneralSettings = (props) => {
               </Typography>
             </Box>
           </CardContent>
-          <CardActions>
-            <Button
-              color="primary"
-              fullWidth
-              variant="text"
-            >
-              Remove Picture
-            </Button>
-          </CardActions>
         </Card>
       </Grid>
       <Grid
@@ -271,61 +260,6 @@ const AccountGeneralSettings = (props) => {
                         onChange={handleChange}
                         value={values.city}
                         variant="outlined"
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <Typography
-                        color="textPrimary"
-                        gutterBottom
-                        variant="subtitle2"
-                      >
-                        Public Profile
-                      </Typography>
-                      <Typography
-                        color="textSecondary"
-                        variant="body2"
-                      >
-                        Means that anyone viewing your profile will
-                        be able to see your contacts details
-                      </Typography>
-                      <Switch
-                        checked={values.isPublic}
-                        color="primary"
-                        edge="start"
-                        name="isPublic"
-                        onChange={handleChange}
-                      />
-                    </Grid>
-                    <Grid
-                      item
-                      md={6}
-                      xs={12}
-                    >
-                      <Typography
-                        color="textPrimary"
-                        gutterBottom
-                        variant="subtitle2"
-                      >
-                        Available to hire
-                      </Typography>
-                      <Typography
-                        color="textSecondary"
-                        variant="body2"
-                      >
-                        Toggling this will let your teammates know
-                        that you are available for acquiring new
-                        projects
-                      </Typography>
-                      <Switch
-                        checked={values.canHire}
-                        color="primary"
-                        edge="start"
-                        name="canHire"
-                        onChange={handleChange}
                       />
                     </Grid>
                   </Grid>

@@ -1,7 +1,6 @@
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
-  Alert,
   Box,
   Button,
   Divider,
@@ -71,8 +70,8 @@ const LoginFirebase = (props) => {
       </Box>
       <Formik
         initialValues={{
-          email: 'demo@devias.io',
-          password: 'Password123!',
+          email: null,
+          password: null,
           submit: null
         }}
         validationSchema={Yup
@@ -156,19 +155,6 @@ const LoginFirebase = (props) => {
               >
                 Log In
               </Button>
-            </Box>
-            <Box sx={{ mt: 2 }}>
-              <Alert severity="info">
-                <div>
-                  You can use
-                  {' '}
-                  <b>demo@devias.io</b>
-                  {' '}
-                  and password
-                  {' '}
-                  <b>Password123!</b>
-                </div>
-              </Alert>
             </Box>
           </form>
         )}

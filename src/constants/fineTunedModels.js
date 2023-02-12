@@ -1,0 +1,15 @@
+export const MODEL_STATUS = {
+    TRAINING: 'TRAINING',
+    COMPLETED: 'COMPLETED',
+    FAILED: 'FAILED',
+    EMBEDDING: 'EMBEDDING',
+    PREPARING: 'PREPARING',
+};
+
+export const MODEL_STATUS_LABELS = {
+    [MODEL_STATUS.TRAINING]: 'Training',
+    [MODEL_STATUS.COMPLETED]: 'Completed',
+    [MODEL_STATUS.FAILED]: 'Failed',
+    [MODEL_STATUS.EMBEDDING]: 'Embedding',
+    [MODEL_STATUS.PREPARING]: 'Preparing',
+};
