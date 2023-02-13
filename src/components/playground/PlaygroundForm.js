@@ -21,6 +21,7 @@ import { completions as fineTunedModelCompletions } from '../../slices/fineTuned
 import { useSelector, useDispatch } from '../../store';
 import { reducerStatus } from '../../constants/reducer';
 import CompletionResultModal from './CompletionResultModal';
+import toast from 'react-hot-toast';
 
 
 const PlaygroundForm = () => {
@@ -48,16 +49,22 @@ const PlaygroundForm = () => {
                     // omit modelId from data as it is not required by the API.
                     data = omit(data, 'modelId');
                     const result = await dispatch(fineTunedModelCompletions({data, modelId}));
-                    setCompletionResult(JSON.stringify(get(result, 'payload.result', {}), null, '\t'));
+                    if (!get(result, 'payload.result', false)) {
+                        toast.error('Something went wrong. The model may be overloaded. Please try again later.');
+                        setCompletionResult({});
+                    } else {
+                        setCompletionResult(get(result, 'payload.result', {}));
+                        setCreateModalOpen(true);
+                    }
                     setSubmitting(false);
-                    setCreateModalOpen(true);
+                    
                 }
             }
             >
                 {({ values, handleChange, handleBlur, handleSubmit, isSubmitting, errors }) => (
                     <Form>
                         <Grid container spacing={2}>
-                            <Grid item md={6}>
+                            <Grid item xs={12} md={6}>
                                 <FormControl variant="outlined" fullWidth>
                                     <InputLabel id="select-label">Model Name</InputLabel>
                                     <Field
