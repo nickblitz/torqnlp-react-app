@@ -1,8 +1,8 @@
 import { combineReducers } from '@reduxjs/toolkit';
-import { reducer as itemsExampleReducer } from '../slices/itemsExample';
+import { reducer as fineTunedModelReducer } from '../slices/fineTunedModels';
 
 const rootReducer = combineReducers({
-  itemsExample: itemsExampleReducer,
+  fineTunedModels: fineTunedModelReducer,
 });
 
 export default rootReducer;

@@ -1,5 +1,6 @@
 // Account
 export const me = () => 'api/v1/me';
 
-// Other stuff...
-export const instanceExample = () => 'instanceExample';
+// fineTunedModels
+export const fineTunedModel = () => 'fineTunedModel';
+export const fineTunedModelCompletion = (modelId) => `fineTunedModel/${modelId}/completion`;

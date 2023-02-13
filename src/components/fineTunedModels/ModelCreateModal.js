@@ -5,33 +5,29 @@ import {
     Dialog,
     DialogTitle,
     DialogContent,
-    DialogActions,
-    Button,
+    Alert,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
+import ModelCreateForm from './ModelCreateForm';
 
-const MonitorCreateModal = ({ open, handleClose }) => (
+const ModelCreateModal = ({ open, handleClose }) => (
     <>
         <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
             <DialogTitle>Create Monitor</DialogTitle>
             <DialogContent>
-                my form
+                <Alert sx={{mb: 4}} severity="info">
+                    This will allow us to upload a file to create a new fine-tuned model. We will need to take 
+                    formatted data set to upload for the model.
+                 </Alert>
+                <ModelCreateForm />
             </DialogContent>
-            <DialogActions>
-                <Button onClick={handleClose} color="primary">
-                    Cancel
-                </Button>
-                <Button onClick={handleClose} color="primary">
-                    Create
-                </Button>
-            </DialogActions>
         </Dialog>
     </>
 );
 
-MonitorCreateModal.propTypes = {
+ModelCreateModal.propTypes = {
     open: PropTypes.bool.isRequired,
     handleClose: PropTypes.func.isRequired,
 };
 
-export default MonitorCreateModal;
+export default ModelCreateModal;

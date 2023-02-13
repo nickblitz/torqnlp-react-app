@@ -8,6 +8,7 @@
 *.sqlite3
 *.ini
 node_modules/*
+/functions/node_modules/*
 my_requirements.txt
 static/*
 build/*

@@ -12,6 +12,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 - Global error handling
 - Env vars for local (`.env`), testing (`.env.testing`), staging (`.env.staging`), production (`.env.production`)
 
+## Pre requisites
+1. npm
+2. node
+3. Install firebase
+```
+npm i -g firebase-tools
+```
+
 ## setup
 1. create local `.env` file.
 ```
@@ -60,6 +68,13 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.<br>
 
 Your app is ready to be deployed.
+
+## Deployments
+```
+npm run build:production
+firebase login
+firebase deploy
+```
 
 ## User Guide
 

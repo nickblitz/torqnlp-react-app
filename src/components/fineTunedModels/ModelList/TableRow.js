@@ -7,6 +7,7 @@ import {
     TableRow,
     Chip,
     IconButton,
+    Tooltip,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { Delete as DeleteIcon, Download as DownloadIcon } from '@material-ui/icons';
@@ -25,16 +26,20 @@ const ModelTableRow = ({ data }) => (
         </TableCell>
         <TableCell align="left">{moment(data.createdAt).format('MMM Do, YYYY')}</TableCell>
         <TableCell align="right">
-        <IconButton 
-            aria-label="Download Embeddings" 
-            disabled={data.status !== MODEL_STATUS.COMPLETED} 
-            color="primary"
-        >
-            <DownloadIcon />
-        </IconButton>
-        <IconButton aria-label="delete" color="primary">
-            <DeleteIcon />
-        </IconButton>
+            <Tooltip title="Download Embeddings">
+                <IconButton 
+                    aria-label="Download Embeddings" 
+                    disabled={data.status !== MODEL_STATUS.COMPLETED} 
+                    color="primary"
+                >
+                    <DownloadIcon />
+                </IconButton>
+            </Tooltip>
+            <Tooltip title="Delete">
+                <IconButton aria-label="delete" color="primary">
+                    <DeleteIcon />
+                </IconButton>
+            </Tooltip>
         </TableCell>
     </TableRow>
 );

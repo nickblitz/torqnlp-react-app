@@ -9,6 +9,7 @@ import { get } from 'lodash';
 import { Link as RouterLink } from 'react-router-dom';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import useAuth from '../../../hooks/useAuth';
+import { account } from '../../../constants/routing';
 
 
 export default function AccountMenu({ onClick, component, customRef }) {
@@ -29,7 +30,7 @@ export default function AccountMenu({ onClick, component, customRef }) {
       component={component}
       ref={customRef}
     >
-      <RouterLink to="/dashboard/account">
+      <RouterLink to={account()}>
         <Avatar
           src={user.avatar}
           sx={{
@@ -55,7 +56,7 @@ export default function AccountMenu({ onClick, component, customRef }) {
           <Link
             color="primary"
             component={RouterLink}
-            to="/pricing"
+            to={account()}
           >
             {get(user, 'account.subscription.plan.name', '-')}
           </Link>

@@ -5,10 +5,11 @@ import {
     Grid,
     Button,
 } from '@material-ui/core';
+import { list as fineTunedModelList } from '../slices/fineTunedModels';
+import { useDispatch } from '../store';
 import PlusIcon from '../icons/Plus';
 import PageContainer from '../components/layouts/PageContainer';
 import PageTitle from '../components/layouts/PageTitle';
-import { useDispatch } from '../store';
 import ModelCreateModal from '../components/fineTunedModels/ModelCreateModal';
 import ModelList from '../components/fineTunedModels/ModelList';
 import PlaygroundContainer from '../components/playground/PlaygroundContainer';
@@ -17,7 +18,7 @@ const Monitors = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        // dispatch(monitorList());
+        dispatch(fineTunedModelList());
     }, [ dispatch ]);
     const [createModalOpen, setCreateModalOpen] = React.useState(false);
 

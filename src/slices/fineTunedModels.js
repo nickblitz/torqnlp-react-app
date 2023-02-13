@@ -1,10 +1,10 @@
 /**
- * This is an example of a slice that fetches a list of items from an API.
+ * FineTunedModel slice
  */
 
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { get } from 'lodash';
-import { itemExampleApi } from '../api/itemExample';
+import { fineTunedModelApi } from '../api/fineTunedModel';
 import objFromArray from '../utils/objFromArray';
 import { defaultInitialState } from '../utils/reducerInitialState';
 import { reducerStatus } from '../constants/reducer';
@@ -21,17 +21,24 @@ const initialState = defaultInitialState({
 });
 
 export const list = createAsyncThunk(
-  'itemInstanceName/list',
+  'fineTunedModel/list',
   async (data) => {
-      return await itemExampleApi.list(data);
-  });
+      return await fineTunedModelApi.list(data);
+});
+
+export const completions = createAsyncThunk(
+  'fineTunedModel/completion',
+  async ({ data, modelId}) => {
+      return await fineTunedModelApi.completions(data, modelId);
+});
 
 const slice = createSlice({
-  name: 'itemInstanceName',
+  name: 'fineTunedModel',
   initialState,
   reducers: {},
   extraReducers(builder) {
     builder
+      // list fineTunedModels
       .addCase(list.pending, (state, action) => {
         state.status = reducerStatus.loading;
       })

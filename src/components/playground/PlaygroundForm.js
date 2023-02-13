@@ -8,7 +8,6 @@ import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import {
     Grid,
-    Button,
     Select,
     TextField,
     MenuItem,
@@ -16,86 +15,103 @@ import {
     InputLabel,
     FormHelperText,
 } from '@material-ui/core';
+import LoadingButton from '../LoadingButton';
+import { get, omit } from 'lodash';
+import { completions as fineTunedModelCompletions } from '../../slices/fineTunedModels';
+import { useSelector, useDispatch } from '../../store';
+import { reducerStatus } from '../../constants/reducer';
+import CompletionResultModal from './CompletionResultModal';
 
-const options = [
-    { value: 'gpt2', label: 'GPT-2' },
-    { value: 'gpt2-medium', label: 'GPT-2 Medium' },
-    { value: 'gpt2-large', label: 'GPT-2 Large' },
-];
 
 const PlaygroundForm = () => {
+    const dispatch = useDispatch();
+    const {
+        results: { allIds, byId },
+        status,
+    } = useSelector((state) => state.fineTunedModels);
+    const [createModalOpen, setCreateModalOpen] = React.useState(false);
+    const [completionResult, setCompletionResult] = React.useState('');
     return (
-        <Formik
-            initialValues={{
-                modelName: '',
-                prompt: '',
-            }}
-            validationSchema={Yup.object({
-                modelName: Yup.string().required('Required'),
-                prompt: Yup.string().required('Required'),
-            })}
-            onSubmit={(values, { setSubmitting }) => {
-                setTimeout(() => {
+        <>
+            <Formik
+                initialValues={{
+                    modelId: '',
+                    prompt: '',
+                }}
+                validationSchema={Yup.object({
+                    modelId: Yup.string().required('Required'),
+                    prompt: Yup.string().required('Required'),
+                })}
+                onSubmit={async (data, { setSubmitting }) => {
+                    const modelId = get(data, 'modelId', '');
+
+                    // omit modelId from data as it is not required by the API.
+                    data = omit(data, 'modelId');
+                    const result = await dispatch(fineTunedModelCompletions({data, modelId}));
+                    setCompletionResult(JSON.stringify(get(result, 'payload.result', {}), null, '\t'));
                     setSubmitting(false);
-                    alert(JSON.stringify(values, null, 2));
-                }, 400);
+                    setCreateModalOpen(true);
+                }
             }
-        }
-        >
-            {({ values, handleChange, handleBlur, handleSubmit, isSubmitting, errors }) => (
-                <Form>
-                    <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <FormControl variant="outlined" fullWidth>
-                                <InputLabel id="select-label">Model Name</InputLabel>
+            >
+                {({ values, handleChange, handleBlur, handleSubmit, isSubmitting, errors }) => (
+                    <Form>
+                        <Grid container spacing={2}>
+                            <Grid item md={6}>
+                                <FormControl variant="outlined" fullWidth>
+                                    <InputLabel id="select-label">Model Name</InputLabel>
+                                    <Field
+                                        as={Select}
+                                        name="modelId"
+                                        labelId="select-label"
+                                        fullWidth
+                                        value={values.modelId}
+                                        error={Boolean(errors.modelId)}
+                                        disabled={status === reducerStatus.loading}
+                                    >
+                                        {allIds.map((modelId) => (
+                                            <MenuItem key={`model-option-${modelId}`} value={modelId}>
+                                                {get(byId[modelId], 'name', '')}
+                                            </MenuItem>
+                                        ))}
+                                    </Field>
+                                    {errors.modelId && <FormHelperText error>{errors.modelId}</FormHelperText>}
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={12}>
                                 <Field
-                                    as={Select}
-                                    name="modelName"
-                                    labelId="select-label"
+                                    as={TextField}
+                                    name="prompt"
+                                    label="Prompt"
+                                    multiline
+                                    rows={4}
+                                    variant="outlined"
                                     fullWidth
-                                    value={values.selectField}
-                                    onChange={handleChange}
-                                    onBlur={handleBlur}
-                                    error={Boolean(errors.modelName)}
+                                    error={Boolean(errors.prompt)}
+                                />
+                                {errors.prompt && <FormHelperText error>{errors.prompt}</FormHelperText>}
+                            </Grid>
+                            <Grid item xs={12}>
+                                <LoadingButton
+                                    type="submit"
+                                    variant="contained"
+                                    color="primary"
+                                    disabled={isSubmitting}
+                                    loading={isSubmitting}
                                 >
-                                    {options.map((option) => (
-                                        <MenuItem key={option.value} value={option.value}>
-                                            {option.label}
-                                        </MenuItem>
-                                    ))}
-                                </Field>
-                                {errors.modelName && <FormHelperText error>{errors.modelName}</FormHelperText>}
-                            </FormControl>
+                                    Submit
+                                </LoadingButton>
+                            </Grid>
                         </Grid>
-                        <Grid item xs={12}>
-                            <Field
-                                as={TextField}
-                                name="prompt"
-                                label="Prompt"
-                                multiline
-                                rows={4}
-                                variant="outlined"
-                                fullWidth
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                                error={Boolean(errors.prompt)}
-                            />
-                            {errors.prompt && <FormHelperText error>{errors.prompt}</FormHelperText>}
-                        </Grid>
-                        <Grid item xs={12}>
-                            <Button
-                                type="submit"
-                                variant="contained"
-                                color="primary"
-                                disabled={isSubmitting}
-                            >
-                                Submit
-                            </Button>
-                        </Grid>
-                    </Grid>
-                </Form>
-            )}
-        </Formik>
+                    </Form>
+                )}
+            </Formik>
+            <CompletionResultModal 
+                open={createModalOpen} 
+                handleClose={() => setCreateModalOpen(false)} 
+                result={completionResult}
+            />
+        </>
     );
                 
 };

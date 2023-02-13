@@ -49,7 +49,13 @@ export const AuthProvider = (props) => {
             avatar: user.photoURL,
             email: user.email,
             name: user.displayName || user.email,
-            plan: 'Premium'
+            account: {
+              subscription: {
+                plan: {
+                  name: 'Trial',
+                },
+              },
+            }
           }
         }
       });

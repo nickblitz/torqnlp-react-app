@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import useAuth from '../../../hooks/useAuth';
 import CogIcon from '../../../icons/Cog';
-import CreditCardIcon from '../../../icons/CreditCard';
 import AccountMenu from './AccountMenu';
 
 const AccountPopover = () => {
@@ -76,24 +75,6 @@ const AccountPopover = () => {
                   variant="subtitle2"
                 >
                   Settings
-                </Typography>
-              )}
-            />
-          </MenuItem>
-          <MenuItem
-            component={RouterLink}
-            to="/account"
-          >
-            <ListItemIcon>
-              <CreditCardIcon fontSize="small" />
-            </ListItemIcon>
-            <ListItemText
-              primary={(
-                <Typography
-                  color="textPrimary"
-                  variant="subtitle2"
-                >
-                  Billing
                 </Typography>
               )}
             />
