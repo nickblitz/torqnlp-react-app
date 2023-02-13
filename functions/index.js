@@ -9,7 +9,7 @@ const restfulApp = require("torqnlp-restful-app");
  * dataPreperationService is a task queue that is used to prepare data to create custom fine-tuned models. 
  */
 exports.dataPreperationService = functions
-.runWith( {secrets: ["OPENAI_API_KEY"]})
+// .runWith( {secrets: ["OPENAI_API_KEY"]})
 .tasks.taskQueue({
   retryConfig: {
     maxAttempts: 5,
@@ -27,7 +27,7 @@ exports.dataPreperationService = functions
  * modelFineTuningService is a task queue that is used to fine-tune models.
  */
 exports.modelFineTuningService = functions
-.runWith( {secrets: ["OPENAI_API_KEY"]})
+// .runWith( {secrets: ["OPENAI_API_KEY"]})
 .tasks.taskQueue({
   retryConfig: {
     maxAttempts: 5,
@@ -45,7 +45,7 @@ exports.modelFineTuningService = functions
  * modelEmbeddingService is a task queue that is used to create embeddings for models.
  */
 exports.modelEmbeddingService = functions
-.runWith( {secrets: ["OPENAI_API_KEY"]})
+// .runWith( {secrets: ["OPENAI_API_KEY"]})
 .tasks.taskQueue({
   retryConfig: {
     maxAttempts: 5,
@@ -55,8 +55,11 @@ exports.modelEmbeddingService = functions
     maxConcurrentDispatches: 6,
   },
 }).onDispatch(async (data) => {
-  // Here we will take pre pared data and create a fine-tuned model.
+  // Here we create embeddings for the fine-tuned model.
   return { success: true };
 });
 
+/**
+ * Restful Express application
+ */
 exports.app = functions.https.onRequest(restfulApp);
